@@ -2,10 +2,11 @@ from django.shortcuts import render
 import json
 import urllib.request
 import speech_recognition as sr
+from .config import OPENWEATHERMAP_API_KEY
 
 # Create your views here.
 def get_weather_data(city):
-    res = urllib.request.urlopen('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid=apikey').read()
+    res = urllib.request.urlopen('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+OPENWEATHERMAP_API_KEY).read()
     json_data = json.loads(res)
     data = {
         "country_code": str(json_data['sys']['country']),
