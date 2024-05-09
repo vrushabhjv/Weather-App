@@ -1,3 +1,4 @@
+import urllib.parse
 from django.shortcuts import render
 import json
 import urllib.request
@@ -6,7 +7,9 @@ from .config import OPENWEATHERMAP_API_KEY
 
 # Create your views here.
 def get_weather_data(city):
-    res = urllib.request.urlopen('https://api.openweathermap.org/data/2.5/weather?q='+city+'&appid='+OPENWEATHERMAP_API_KEY).read()
+    quoted_city = urllib.parse.quote(city)
+    print(quoted_city)
+    res = urllib.request.urlopen('https://api.openweathermap.org/data/2.5/weather?q='+quoted_city+'&appid='+OPENWEATHERMAP_API_KEY).read()
     json_data = json.loads(res)
     data = {
         "country_code": str(json_data['sys']['country']),
